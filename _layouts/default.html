@@ -47,8 +47,8 @@ layout: compress
 
 		<div class="col-xs-8 col-xs-offset-2">
 			<ul class="breadcrumb">
-			    <li><a href="/index.html">Index</a></li>
-				<li class="active"><a href="{{ page.url }}">{% if page.title %}{{ page.title }}{% else %}No Title{% endif %}</a></li>
+			    <li><a href="{{ site.url }}{{ site.baseurl}}/index.html">Index</a></li>
+				<li class="active"><a href="{{ site.url }}{{ site.baseurl }}{{ page.url }}">{% if page.title %}{{ page.title }}{% else %}No Title{% endif %}</a></li>
 			</ul>
 		</div>
 
