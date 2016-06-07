@@ -1,4 +1,4 @@
-# web3d-treemaps
+## Dynamic 2.5D Treemaps using Declarative 3D on the Web
 
 The open-source implementation (MIT license) created in conjunction with Limberger, D., Scheibel, W., Lemme, S., and Döllner, J.  2016. *Dynamic 2.5D Treemaps using Declarative 3D on the Web*. In *Proc. ACM Web3D*.
 
