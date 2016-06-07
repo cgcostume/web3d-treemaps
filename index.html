@@ -43,8 +43,8 @@ title: Decl3D 2.5D Treemaps
   					<a href="http://xml3d.org/">Interactive 3D Graphics for the Web</a>,
   					<a href="http://xml3d.org/xml3d/specification/latest/">XML3D Specification</a>
   					{% elsif category == 'x3dom' %}
-  					<a href="http://www.x3dom.org/">Instant 3D the HTML way!</a>,
-  					<a href="http://doc.x3dom.org/index.html">X3DOM Documentation</a>
+  					<a href="https://www.x3dom.org/">Instant 3D the HTML way!</a>,
+  					<a href="https://doc.x3dom.org/index.html">X3DOM Documentation</a>
   					{% elsif category == 'gltf' %}
   					<a href="https://github.com/KhronosGroup/glTF">GL Transmission Format</a>,
   					<a href="https://github.com/KhronosGroup/glTF/blob/master/specification/README.md">glTF Specification</a>
@@ -55,7 +55,7 @@ title: Decl3D 2.5D Treemaps
 					{% for page in site.pages %}
 					{% assign foo = page.url | split: '.' %}
 					{% if foo.last == "html" and page.categories contains category %}
-					<a class="list-group-item list-group-item-{{ page.status }}" href="{{ page.url }}">{% if page.title %}{{ page.title }}{% else %}No Title{% endif %} <small class="hidden-xs pull-right">{{ page.url }}</small></a>
+					<a class="list-group-item list-group-item-{{ page.status }}" href="{{ site.url }}{{ site.baseurl }}{{ page.url }}">{% if page.title %}{{ page.title }}{% else %}No Title{% endif %} <small class="hidden-xs pull-right">{{ page.url }}</small></a>
 					{% endif %}
 					{% endfor %}   
   				</div>
