@@ -20,7 +20,9 @@ markdown: kramdown
 # Outputting
 exclude: [
   'backup',
-  'vendor']
+  'vendor',
+  'LICENSE',
+  'README.md']
 
 # CSS Minification
 sass:
