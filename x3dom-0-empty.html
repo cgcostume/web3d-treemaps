@@ -1,0 +1,121 @@
+---
+layout: default
+categories: [x3dom]
+status: info
+title: 'X3DOM : Empty'
+---
+
+<script src="http://x3dom.org/download/1.7.1/x3dom.js"></script>
+
+<script>
+
+    var proxied = null;
+
+    function init_body()
+    {
+        x3dom.runtime.ready = function() 
+        {
+            /* work around canvas extent dpi scale issue */
+            x3dom.canvases[0].canvas.width  = parseInt( $('x3d').attr('width'));
+            x3dom.canvases[0].canvas.height = parseInt( $('x3d').attr('height'));
+
+            setupEval();
+            setupFirstFrame();  
+
+            proxied = x3dom.canvases[0].tick;
+            x3dom.canvases[0].tick = function() 
+            {
+                evalTick();
+                /* force x3dom canvas to rerender - no caching etc. */
+                x3dom.canvases[0].doc.needRender = true;
+
+                return proxied.apply( this, arguments );
+            };
+
+            /*x3dom.runtime.enterFrame = function() 
+            {
+                evalTick(); 
+            };*/
+
+            /* remove hidden x3dom stats & logging */
+            $('#x3dom_logdiv').remove();
+            $('#x3dom-state-viewer').remove();
+            $('.x3dom-progress').remove();
+            
+            $("x3d").find("shape").each(function()
+            {
+                $(this).attr("onmouseover", "highlightNode(this);");
+                $(this).attr("onmouseout", "unhighlightNode(this);");
+            });
+        };
+    }
+
+    function highlightNode(node)
+    {
+        if ($.isNumeric(node))
+        {
+            node = $("shape")[node];
+        }
+        
+        var material = $(node).find("material");
+                    
+        material.attr("emissiveColor", material.attr("diffuseColor"));
+    }
+    
+    function unhighlightNode(node)
+    {
+        if ($.isNumeric(node))
+        {
+            node = $("shape")[node];
+        }
+        
+        var material = $(node).find("material");
+        
+        material.attr("emissiveColor", "");
+    }
+
+    function numberOfItems()
+    {
+        console.log("Number of items not implemented.");
+        
+        return -1;
+    }
+
+    function randomizeAllColorAttributes()
+    {
+        console.log("Randomization of color attributes not implemented.");
+    }
+
+    function randomizeAllHeightAttributes()
+    {
+        console.log("Randomization of height attributes not implemented.");
+    }
+
+    function highlight(index)
+    {
+        console.log("Highlighting of index node not implemented.");
+    }
+
+    function unhighlight(index)
+    {
+        console.log("Un-highlighting of index node not implemented.");
+    }
+
+</script>
+
+<X3D profile='Interchange' version='3.3' noNamespaceSchemaLocation='http://www.web3d.org/specifications/x3d-3.3.xsd' width="1110px" height="720px">
+    <Head>
+    </Head>
+    <Scene>
+        <!--<navigationInfo type='"turntable"' id="navType"></navigationInfo>-->
+        <viewpoint position="0 1.25 1.0" fieldofview="0.56" orientation="1.0 0.0 0.0 -0.93" centerofrotation="0,0,0" znear="0.02" zfar="16.0"> </viewpoint>
+        <transform id="transform-0" translation="0 0.002 0" scale="1 0.004 1">
+            <shape id="0">
+                <appearance>
+                    <material id="color-0" diffuseColor="0.913725 0.913725 0.913725"/>
+                </appearance>
+                <box size="1 1 1"/>
+            </shape>
+        </transform>
+    </Scene>
+</X3D>

@@ -1,0 +1,148 @@
+---
+layout: default
+categories: [xml3d]
+status: danger
+title: 'XML3D : All-in-One static Mesh'
+---
+
+<script src="js/xml3d-min.js"></script>
+<script src="http://www.xml3d.org/xml3d/script/tools/camera.js"></script>
+
+<script>
+
+    function init_body() 
+    { 
+        setupEval();
+    }
+
+    function init() 
+    {
+        var view = $("#view")[0];
+        window.camera = new XML3D.StandardCamera(view, { mode:"examine" });
+
+        XML3D.options.setValue("renderer-continuous", true);
+        XML3D.options.setValue("renderer-faceculling", "back");
+
+        document.addEventListener("framedrawn", function(event) {  evalTick(); });
+    }
+
+    function randomizeAllColorAttributes()
+    {
+        console.log("Randomization of color attributes not implemented.");
+    }
+
+    function randomizeAllHeightAttributes()
+    {
+        console.log("Randomization of height attributes not implemented.");
+    }
+
+    function numberOfItems()
+    {
+        return -1;
+    }
+
+    function highlightNode(index)
+    {
+        $($('mesh')[index]).attr('material', '#highlight_material');
+    }
+
+    function unhighlightNode(index)
+    {
+        $($('mesh')[index]).attr('material', '');
+    }
+
+    function highlight(event)
+    {
+        event.target.setAttribute('material', '#highlight_material');
+    }
+
+    function unhighlight(event)
+    {
+        event.target.setAttribute('material', '');
+    }
+
+</script>
+
+<xml3d onload="init()" id="scene" class="xml3d" width="1110px" height="720px" view="#view">
+  
+  <defs>
+  
+    <!-- Unit Cube -->
+    <material id="cuboid_material" model="urn:xml3d:material:diffuse">
+      <float name="ambientIntensity">0.2</float>
+  	  <bool name="useVertexColor">true</bool>
+    </material>
+
+    <material id="highlight_material" model="urn:xml3d:material:diffuse">
+      <float name="ambientIntensity">0.5</float>
+      <bool name="useVertexColor">true</bool>
+    </material>
+	
+    <data id="cuboid">
+	    <float3 name="cube_position">
+        -0.5 0.0 +0.5  -0.5 1.0 +0.5  -0.5 0.0 -0.5  -0.5 1.0 -0.5
+        -0.5 0.0 -0.5  -0.5 1.0 -0.5  +0.5 0.0 -0.5  +0.5 1.0 -0.5
+        +0.5 0.0 -0.5  +0.5 1.0 -0.5  +0.5 0.0 +0.5  +0.5 1.0 +0.5
+        +0.5 0.0 +0.5  +0.5 1.0 +0.5  -0.5 0.0 +0.5  -0.5 1.0 +0.5
+        -0.5 1.0 +0.5  +0.5 1.0 +0.5  -0.5 1.0 -0.5  +0.5 1.0 -0.5</float3>
+	    <float3 name="cube_normal">
+	    -1  0  0  -1  0  0  -1  0  0  -1  0  0
+		   0  0 -1   0  0 -1   0  0 -1   0  0 -1
+		   1  0  0   1  0  0   1  0  0   1  0  0
+		   0  0  1   0  0  1   0  0  1   0  0  1
+		   0  1  0   0  1  0   0  1  0   0  1  0</float3>
+	
+    </data>
+  	
+  	<dataflow id="gen-boxes" out="position, normal, color">
+  		<script name="xflow.genBoxes" type="text/javascript" src="js/xflow-treemap-boxes.js"></script>
+  		<float3 name="center" param="true"></float3>
+  		<float2 name="extent" param="true"></float2>
+  		<float name="height" param="true"></float>
+  		<float3 name="color" param="true"></float3>
+  		<float3 name="cube_position" param="true"></float3>
+  		<float3 name="cube_normal" param="true"></float3>
+  		<compute>
+  			position, normal, color = xflow.genBoxes();
+  		</compute>
+  	</dataflow>
+
+  	<dataflow id="merge-boxes" out="index">
+  		<script name="xflow.mergeBoxes" type="text/javascript" src="js/xflow-treemap-merge.js"></script>
+  		<int name="id" param="true"></int>
+  		<float3 name="cube_position" param="true"></float3>
+  		<compute>
+  			index = xflow.mergeBoxes();
+  		</compute>
+  	</dataflow>
+  	
+  	<data id="d" compute="dataflow['#gen-boxes']">
+  	  <data src="data.xml#treemap"></data>
+        <data src="#cuboid"></data>
+  	</data>
+  	
+  </defs>
+  
+  <!-- Scene -->
+  <!-- NOTE http://xml3d.org/xml3d/specification/latest/#the-view-element
+    XML3D does not provide camera navigation through the scene by e.g. binding mouse events to changes to the active view element. Instead, this is left to the application (or some navigation library), because the navigation is part of the interaction with the scene and is typically very application-specific -->
+  <transform id="t_camera" translation="0.0 1.25 1.0" rotation="1.0 0.0 0.0 -0.93"></transform>
+  
+  <view id="view" transform="#t_camera" mode="examine">
+    <float name="fovVertical">0.56</float>
+    <!-- <float name="near">0.2</float>
+    <float name="far">16.0</float> -->
+  </view>
+  
+  <light id="light" model="urn:xml3d:light:directional">
+    <float3 name="direction">0.0 -1.0 -1.25</float3>
+  </light>
+
+  <!-- 2.5D Treemap -->
+  <group id="treemap" material="#cuboid_material">
+  
+<mesh id="0" type="tristrips" compute="dataflow['#merge-boxes']" src="#d"></mesh>
+
+  </group>
+    
+</xml3d>

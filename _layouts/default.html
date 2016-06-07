@@ -1,0 +1,94 @@
+---
+layout: compress
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>{{ page.title }}</title>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/styles.css">
+
+	<noscript><style>.js-only { display: none; }</style></noscript>
+
+	<script src="https://cdn.jsdelivr.net/g/jquery@2.2.1,bootstrap@3.3.6"></script>
+
+	<script src="js/stats.js"></script>
+	<script src="js/eval.js"></script>
+
+</head>
+
+<body onload="init_body()">
+
+<div class="container">
+
+	<div class="row text-center m-t">
+		<div class="col-xs-8 col-xs-offset-2">
+			<h3>{{ site.title }}</h3>
+			<p>{{ site.submission }}</p>
+			<p class="lead">{{ page.title }}</p>
+		</div>
+	</div>
+
+	<div class="row center-block m-t">
+		<div id="decl3d" class="col-xs-12 col-xs-offset-0" style="height: 720px;">
+
+			{{ page.content }}
+
+		</div>
+	</div>
+
+	<div class="row m-t">
+
+		<div class="col-xs-8 col-xs-offset-2">
+			<ul class="breadcrumb">
+			    <li><a href="/index.html">Index</a></li>
+				<li class="active"><a href="{{ page.url }}">{% if page.title %}{{ page.title }}{% else %}No Title{% endif %}</a></li>
+			</ul>
+		</div>
+
+		<div class="col-xs-1 col-xs-offset-2" id="stats0"></div>
+		<div class="col-xs-1 col-xs-offset-0" id="stats1"></div>
+		<div class="col-xs-1 col-xs-offset-0" id="stats2"></div>
+		<div class="col-xs-1 col-xs-offset-1">
+			<button class="btn btn-default btn-sm" onclick="randomizeAllColorAttributes()">Rndmz Color</button>
+		</div>
+		<div class="col-xs-1 col-xs-offset-0">
+			<button class="btn btn-default btn-sm" onclick="randomizeAllHeightAttributes()">Rndmz Height</button>
+		</div>
+		<div class="col-xs-2 col-xs-offset-0">
+			<span class="pull-right">
+				<button id="benchmark" class="btn btn-danger" onclick="benchmark()">
+				Benchmark</button>
+			</span>
+		</div>
+	</div>
+
+	<div class="row m-t">
+		<div class="col-xs-8 col-xs-offset-2">
+
+			<div class="alert alert-danger" role="alert">
+
+				<pre id="eval-load"></pre>
+				<pre>
+Average frame time: <span id="eval-frame">-</span>
+Average color remapping time:  <span id="eval-remap-color">-</span>
+Average height remapping time: <span id="eval-remap-height">-</span>
+Average highlighting (single item) time: <span id="evalhighlight">-</span></pre>
+
+			</div>
+		</div>
+	</div>
+
+	<footer></footer>
+
+</div>
+
+</body>
+
+</html>

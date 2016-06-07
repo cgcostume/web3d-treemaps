@@ -1,0 +1,27 @@
+# Site settings
+timezone: Europe/Berlin
+
+baseurl: '' # the subpath of your site, e.g. /blog/
+url: 'http://hpicgs.github.io/web3d-treemaps' # the base hostname & protocol for your site
+
+title: 'Dynamic 2.5D Treemaps using Declarative 3D on the Web'
+submission: 'Daniel Limberger, Willy Scheibel, Stefan Lemme, and Jürgen Döllner'
+
+languages: [ 'en', 'de' ]
+category-list: [ x3dom, xml3d, gltf ]
+
+# Handling Reading
+safe: true
+encoding: utf-8
+
+# Build settings
+markdown: kramdown
+
+# Outputting
+exclude: [
+  'backup',
+  'vendor']
+
+# CSS Minification
+sass:
+  style: compressed

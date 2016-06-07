@@ -1,0 +1,117 @@
+---
+layout: default
+categories: [xml3d]
+status: info
+title: 'XML3D : Empty'
+---
+
+
+<script src="js/xml3d-min.js"></script>
+<script src="http://www.xml3d.org/xml3d/script/tools/camera.js"></script>
+
+<script>
+
+    function init_body() 
+    { 
+        setupEval();
+    }
+
+    function init() 
+    {
+        var view = $("#view")[0];
+        window.camera = new XML3D.StandardCamera(view, { mode:"examine" });
+
+        XML3D.options.setValue("renderer-continuous", true);
+        XML3D.options.setValue("renderer-faceculling", "back");
+
+        document.addEventListener("framedrawn", function(event) {  evalTick(); });
+    }
+
+    function numberOfItems()
+    {
+        return $("model").size();
+    }
+    
+    function randomizeAllColorAttributes()
+    {
+        console.log("Randomization of color attributes not implemented.");
+    }
+
+    function randomizeAllHeightAttributes()
+    {
+        console.log("Randomization of height attributes not implemented.");
+    }
+
+    function highlightNode(index)
+    {
+        console.log("Highlighting of index node not implemented.");
+    }
+
+    function unhighlightNode(index)
+    {
+        console.log("Un-highlighting of index node not implemented.");
+    }
+
+</script>
+
+<xml3d onLoad="init()" id="scene" class="xml3d" width="1110px" height="720px" view="#view">
+
+  <defs>
+
+    <!-- Unit Cube -->
+    <material id="cuboid_material" model="urn:xml3d:material:diffuse">
+      <!--<float name="shininess">8.0</float>-->
+      <!--<float name="ambientIntensity">0.0</float>-->
+    </material>
+
+    <data id="cuboid">
+      <float3 name="position">
+        -0.5 0.0 +0.5  -0.5 1.0 +0.5  -0.5 0.0 -0.5  -0.5 1.0 -0.5
+        -0.5 0.0 -0.5  -0.5 1.0 -0.5  +0.5 0.0 -0.5  +0.5 1.0 -0.5
+        +0.5 0.0 -0.5  +0.5 1.0 -0.5  +0.5 0.0 +0.5  +0.5 1.0 +0.5
+        +0.5 0.0 +0.5  +0.5 1.0 +0.5  -0.5 0.0 +0.5  -0.5 1.0 +0.5
+        -0.5 1.0 +0.5  +0.5 1.0 +0.5  -0.5 1.0 -0.5  +0.5 1.0 -0.5</float3>
+      <float3 name="normal">
+        -1  0  0  -1  0  0  -1  0  0  -1  0  0
+         0  0 -1   0  0 -1   0  0 -1   0  0 -1
+         1  0  0   1  0  0   1  0  0   1  0  0
+         0  0  1   0  0  1   0  0  1   0  0  1
+         0  1  0   0  1  0   0  1  0   0  1  0</float3>
+      <int name="index">0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19</int>
+    </data>
+
+    <asset id="c"> <!-- cuboid -> c for reduced xml -->
+      <assetdata name="s">
+        <float3 name="diffuseColor">0 0 0</float3>
+      </assetdata>
+      <assetmesh includes="s" type="tristrips">
+        <data src="#cuboid"></data>
+      </assetmesh> <!-- cuboid_shader -> s for reduced xml -->
+    </asset>
+
+  </defs>
+
+  <!-- Scene -->
+
+  <!-- NOTE http://xml3d.org/xml3d/specification/latest/#the-view-element
+    XML3D does not provide camera navigation through the scene by e.g. binding mouse events to changes to the active view element. Instead, this is left to the application (or some navigation library), because the navigation is part of the interaction with the scene and is typically very application-specific -->
+  <transform id="t_camera" translation="0.0 1.25 1.0" rotation="1.0 0.0 0.0 -0.93"></transform>
+  <view id="view" transform="#t_camera" mode="examine">
+    <float name="fovVertical">0.56</float>
+    <float name="near">0.2</float>
+    <float name="far">16.0</float>
+  </view>
+
+  <light id="light" model="urn:xml3d:light:directional">
+    <float3 name="direction">0.0 -1.0 -1.25</float3>
+  </light>
+
+  <!-- 2.5D Treemap -->
+
+  <group id="treemap" material="#cuboid_material">
+
+    <transform id="t1" translation="0.0 0.006100 0.0" scale="1.0 0.004000 1.0"></transform>
+  <model id="1" src="#c" transform="#t1"><assetdata name="s"><float3 name="diffuseColor">0.815686 0.815686 0.815686</float3></assetdata></model>
+  </group>
+    
+</xml3d>

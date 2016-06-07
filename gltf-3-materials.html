@@ -1,0 +1,68 @@
+---
+layout: default
+categories: [gltf]
+status: danger
+title: 'glTF : Shared Mesh with Material per Node'
+---
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r76/three.min.js"></script>
+
+<script src="js/threejs-gltf/glTF-parser.js"></script>
+<script src="js/threejs-gltf/glTFLoader.js"></script>
+<script src="js/threejs-gltf/glTFLoaderUtils.js"></script>
+<script src="js/threejs-gltf/glTFAnimation.js"></script>
+<script src="js/threejs-gltf/glTFShaders.js"></script>
+<script src="js/threejs-gltf/glTFOrbitControls.js"></script>
+
+<script src="js/gltf.js"></script>
+
+<script>
+
+    function init_body() 
+    {
+		setupEval();
+
+		initScene({
+			name : "Treemap", url : "gltf-materials.json",
+			cameraPos: new THREE.Vector3(0.0, 1.25, 1.0),
+			objectScale: new THREE.Vector3(1.0, 1.0, 1.0),
+			objectPosition: new THREE.Vector3(0, 0, 0),
+			objectRotation: new THREE.Euler(0, 0, 0),
+			animationTime: 0,
+			addLights:true,
+			shadows:true,
+			addGround:true
+		});
+		render();
+
+    }
+
+    function randomizeAllColorAttributes()
+    {
+        console.log("Randomization of color attributes not implemented.");
+    }
+
+    function randomizeAllHeightAttributes()
+    {
+        console.log("Randomization of height attributes not implemented.");
+    }
+
+    function numberOfItems()
+    {
+        console.log("Number of items not implemented.");
+        
+        return -1;
+    }
+
+    function highlightNode(index)
+    {
+        console.log("Highlighting of index node not implemented.");
+    }
+
+    function unhighlightNode(index)
+    {
+        console.log("Un-highlighting of index node not implemented.");
+    }
+
+</script>

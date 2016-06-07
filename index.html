@@ -1,0 +1,82 @@
+---
+layout: compress
+title: Decl3D 2.5D Treemaps
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>{{ page.title }}</title>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/styles.css">
+
+	<noscript><style>.js-only { display: none; }</style></noscript>
+
+	<script src="https://cdn.jsdelivr.net/g/jquery@2.2.1,bootstrap@3.3.6"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+	<div class="row text-center m-t">
+		<div class="col-md-8 col-md-offset-2 col-xs-12 col-xs-offset-0">
+			<h3>{{ site.title }}</h3>
+			<p>{{ site.submission }}</p>
+		</div>
+	</div>
+
+	{% for category in site.category-list %}
+	<div class="row m-t">
+		<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+			<div class="panel panel-default">
+  				<div class="panel-heading">
+  					<strong>{{ category | upcase }}</strong>
+  					<span class="hidden-xs pull-right">
+  					{% if category == 'xml3d' %}
+  					<a href="http://xml3d.org/">Interactive 3D Graphics for the Web</a>,
+  					<a href="http://xml3d.org/xml3d/specification/latest/">XML3D Specification</a>
+  					{% elsif category == 'x3dom' %}
+  					<a href="http://www.x3dom.org/">Instant 3D the HTML way!</a>,
+  					<a href="http://doc.x3dom.org/index.html">X3DOM Documentation</a>
+  					{% elsif category == 'gltf' %}
+  					<a href="https://github.com/KhronosGroup/glTF">GL Transmission Format</a>,
+  					<a href="https://github.com/KhronosGroup/glTF/blob/master/specification/README.md">glTF Specification</a>
+  					{% endif %}
+  					</span>
+  				</div>
+				<div class="list-group">
+					{% for page in site.pages %}
+					{% assign foo = page.url | split: '.' %}
+					{% if foo.last == "html" and page.categories contains category %}
+					<a class="list-group-item list-group-item-{{ page.status }}" href="{{ page.url }}">{% if page.title %}{{ page.title }}{% else %}No Title{% endif %} <small class="hidden-xs pull-right">{{ page.url }}</small></a>
+					{% endif %}
+					{% endfor %}   
+  				</div>
+  			</div>
+		</div>
+	</div>
+	{% endfor %}
+
+	<div class="row m-t">
+		<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+			Approaches (colored):
+			<span class="label label-success">Proposed</span> 
+			<span class="label label-warning">Feature Complete</span>
+			<span class="label label-danger">Feature Incomplete</span>
+			<span class="label label-info">Template</span>
+		</div>
+	</div>
+
+	<footer class="m-t"></footer>
+
+</div>
+
+</body>
+</html>
