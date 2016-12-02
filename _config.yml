@@ -2,7 +2,7 @@
 timezone: Europe/Berlin
 
 baseurl: '/web3d-treemaps' # the subpath of your site, e.g. /blog/
-url: 'http://hpicgs.github.io' # the base hostname & protocol for your site
+url: 'http://cgcostume.github.io' # the base hostname & protocol for your site
 
 title: 'Dynamic 2.5D Treemaps using Declarative 3D on the Web'
 submission: 'Daniel Limberger, Willy Scheibel, Stefan Lemme, and Jürgen Döllner'
